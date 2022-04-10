@@ -13,10 +13,8 @@ import Help from "./pages/Help/Help";
 import { TeamFinderCard } from "./components/TeamFinder/TeamFinderCard";
 import { FeedCard } from "./components/FeedCard/FeedCard";
 import { EditProfile } from "./pages/Profile/EditProfile";
-import {useNavigate} from 'react-router-dom'
 
 function App() {
-  // const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("token")) {
