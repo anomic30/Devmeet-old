@@ -3,7 +3,6 @@ import "./Profile.css";
 import avatar_pic from "../../assets/images/avatar2.png";
 import github from "../../assets/icons/github.svg";
 import linkedin from "../../assets/icons/linkedin.svg";
-import skills from "./test_skills";
 import { Chips } from "../../components/Chips/Chips";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -98,6 +97,7 @@ const Profile = () => {
       localStorage.setItem("user_info", JSON.stringify(res.data));
     };
     setUserDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

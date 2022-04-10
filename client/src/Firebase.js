@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider,signInWithPopup } from 'firebase/auth';
 import  Axios  from 'axios';
-import { getStorage, ref } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBNgK2hGTPQKq3tXZtfDMzmnIbhHzYMDkk",

@@ -1,13 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useNavigate } from 'react-router-dom';
 import signin_img from '../../assets/images/signin.png'
 import { LoginUser } from '../../service/Api';
 import "./SignIn.css"
 import { signInWithGoogle } from '../../Firebase';
-import { auth } from '../../Firebase';
-import { Axios } from 'axios';
-
 
 const SignIn = ({ setIsLoggedIn }) => {
     const navigate = useNavigate();

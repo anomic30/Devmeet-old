@@ -28,6 +28,7 @@ export const FeedCard = ({ post, recall }) => {
         if (post.likes.some(like => like.username === username)) {
             setLiked(true);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     const [postUser,setPostUser] =useState({});

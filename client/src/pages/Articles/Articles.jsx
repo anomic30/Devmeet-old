@@ -24,7 +24,7 @@ const Articles = () => {
              {item.sub_head}
             </p>
           
-            <a href={item.arti_link} target="_blank">  <button className="art-btn">Read More</button></a>
+            <a href={item.arti_link} target="_blank" rel="noreferrer">  <button className="art-btn">Read More</button></a>
           </div>
           
         </div>

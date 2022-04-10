@@ -60,6 +60,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getUserSpaces();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return <div className='dashboard-con' id={modal ? 'blurr' : null}>
     <div className="dashboard-main">

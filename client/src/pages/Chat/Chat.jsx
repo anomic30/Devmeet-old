@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Chat.css";
-import profile from "../../assets/images/profile2.png";
 import { IoMdSend } from "react-icons/io";
 import Axios from "axios";
 import { io } from "socket.io-client";
@@ -99,6 +98,7 @@ const Chat = () => {
       socket.disconnect();
       socket.off();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSpace]);
 
   console.log(userSpaces.members);
@@ -128,7 +128,7 @@ const Chat = () => {
                 </div>
               </div>
               <div className="name-box">
-              {searchRes.length == 0
+              {searchRes.length === 0
                   ? userSpaces.map((space) => {
                       return (
                         <div
@@ -156,7 +156,7 @@ const Chat = () => {
               </div>
             </div>
             <div className="chat-box-2">
-              {selectedSpace == "" ? (
+              {selectedSpace === "" ? (
                 <h1>Select a user to chat!</h1>
               ) : (
                 <div className="uid">
