@@ -39,7 +39,7 @@ First, make sure you have all these installed on your local machine & then conti
 
 ```bash
 # Clone the repository
-git clone https://github.com/Megh2507/Hack4Bengal.git
+git clone https://github.com/Megh2507/Devmeet.git
 # Enter into the client folder and install the dependencies
 cd client
 npm install
