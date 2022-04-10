@@ -15,10 +15,10 @@ const Chat = () => {
   const [search, setSearch] = useState("");
   const [searchRes, setSearchRes] = useState([]);
   const [selectedSpace, setSelectedSpace] = useState("");
-  const ENDPOINT = `http://localhost:8000`;
+  const ENDPOINT = `https://devmeet-server.herokuapp.com`;
 
   const getUserSpaces = async () => {
-    const res = await Axios.post(`http://localhost:8000/get-users-spaces`, {
+    const res = await Axios.post(`https://devmeet-server.herokuapp.com/get-users-spaces`, {
       username: user.username,
     });
     localStorage.setItem("user_spaces", JSON.stringify(res.data));
@@ -34,7 +34,7 @@ const Chat = () => {
   };
 
   const submitSearch = async () => {
-    const res = await Axios.post(`http://localhost:8000/search-space`, {
+    const res = await Axios.post(`https://devmeet-server.herokuapp.com/search-space`, {
       username: user.username,
       search: search,
     });
@@ -51,7 +51,7 @@ const Chat = () => {
     const data = { username, id, message };
     console.log(data);
     if (message) {
-      await Axios.post("http://localhost:8000/send-message", data, {
+      await Axios.post("https://devmeet-server.herokuapp.com/send-message", data, {
         headers: { "Content-Type": "application/json" },
       })
         .then((response) => {

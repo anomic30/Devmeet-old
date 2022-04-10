@@ -38,7 +38,7 @@ const Profile = () => {
         alert("Profile Picture Changed Successfully!");
         getDownloadURL(ref(storage, `profileImages/${profileImg.name}`)).then(
           (url) => {
-            Axios.patch(`http://localhost:8000/updateUser/${user._id}`, {
+            Axios.patch(`https://devmeet-server.herokuapp.com/updateUser/${user._id}`, {
               profilePic: url,
             })
               .then((res) => {
@@ -70,7 +70,7 @@ const Profile = () => {
         alert("Cover Picture Changed Successfully!");
         getDownloadURL(ref(storage, `coverImages/${coverImg.name}`)).then(
           (url) => {
-            Axios.patch(`http://localhost:8000/updateUser/${user._id}`, {
+            Axios.patch(`https://devmeet-server.herokuapp.com/updateUser/${user._id}`, {
               coverPic: url,
             })
               .then((res) => {
@@ -89,7 +89,7 @@ const Profile = () => {
   useEffect(() => {
     console.log(username);
     const setUserDetails = async () => {
-      const res = await Axios.post("http://localhost:8000/getUser", {
+      const res = await Axios.post("https://devmeet-server.herokuapp.com/getUser", {
         username: username,
       });
       console.log(res.data);

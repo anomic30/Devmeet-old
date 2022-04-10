@@ -9,7 +9,7 @@ export const RegisterUser = async (credentials) => {
   try {
     console.log(credentials);
 
-    const Post = await Axios.post(` http://localhost:8000/register`, credentials);
+    const Post = await Axios.post(` https://devmeet-server.herokuapp.com/register`, credentials);
 
     return Post;
   } catch (error) {
@@ -24,7 +24,7 @@ export const LoginUser = async (credentials) => {
   try {
     console.log(credentials);
 
-    const Post = await Axios.post(` http://localhost:8000/login`, credentials);
+    const Post = await Axios.post(` https://devmeet-server.herokuapp.com/login`, credentials);
 
     return Post;
   } catch (error) {
@@ -39,7 +39,7 @@ export const PostFeed = async (details) => {
   try {
     console.log(details);
 
-    const Post = await Axios.post(` http://localhost:8000/post-feed`, details);
+    const Post = await Axios.post(` https://devmeet-server.herokuapp.com/post-feed`, details);
 
     return Post;
   } catch (error) {
@@ -52,7 +52,7 @@ export const PostFeed = async (details) => {
 
 export const GetAllPosts = async () => {
   try {
-    const Posts = await Axios.get(` http://localhost:8000/getAllPosts`);
+    const Posts = await Axios.get(` https://devmeet-server.herokuapp.com/getAllPosts`);
 
     return Posts;
   } catch (error) {
@@ -66,7 +66,7 @@ export const UpdateUser = async (userId, details) => {
   try {
     console.log(details);
 
-    const Submission = await Axios.patch(`http://localhost:8000/updateUser/${userId}`, details);
+    const Submission = await Axios.patch(`https://devmeet-server.herokuapp.com/updateUser/${userId}`, details);
 
     return Submission;
   } catch (error) {

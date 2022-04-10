@@ -14,7 +14,7 @@ const firebaseConfig = {
 
 const credCheck = async function(res){
     
-    const result = await Axios.post('http://localhost:8000/login-with-google',{
+    const result = await Axios.post('https://devmeet-server.herokuapp.com/login-with-google',{
             email : res.user.email
     });
     if(result){

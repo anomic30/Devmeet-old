@@ -4,7 +4,6 @@ import helpsvg from "./help-svg.svg";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 
-
 function Help() {
   const [fclk, setFclk] = useState(false);
   const [sclk, setSclk] = useState(false);
