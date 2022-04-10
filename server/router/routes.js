@@ -176,4 +176,170 @@ router.post("/post-like", async (req, res) => {
 
 
 
+router.patch("/updateUser/:id", async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const updateUser = await User.findByIdAndUpdate(_id, req.body, {
+      new: true,
+    });
+    res.status(200).json({ updateUser, success: true });
+  } catch (e) {
+    res.status(500);
+    res.json({ message: `Could not update user --> ${e}` });
+  }
+});
+
+router.post("/send-email", async (req, res) => {
+  const { email, name } = req.body;
+  const msg = {
+    to: email,
+    from: "web.devcon4u@gmail.com",
+    subject: "New Notification from Devcon",
+    text: `${name} wants to connect with you!`,
+  }
+  try {
+    await sgMail.send(msg)
+    res.status(200).json({ message: "Email sent successfully!" });
+  } catch (e) {
+    res.status(500).json({ message: `Could not send email --> ${e}` });
+  }
+
+});
+
+router.post("/create-space", async (req, res) => {
+  try {
+    const {admin, members, spaceName, chatPic } = req.body;
+
+    if (!spaceName || !members || !chatPic) {
+      return res.status(422).json({ error: "Please fill all the fields." });
+    }
+    const userFound = await User.findOne({ username: admin });
+
+    const foundSpaces = await Spaces.find();
+
+  
+
+    // const saveSpaces = await userFound.EmbedSpaces(spaceName);
+
+   
+
+    const filteredMembers = members.filter((member) => {
+      return member !== admin
+    })
+
+    const ChatHead = filteredMembers.toString();
+
+    const userSpaces = foundSpaces.filter((userSpace) => {
+      return ((userSpace.members[0] == admin || userSpace.members[1] == admin) && (filteredMembers[0] == userSpace.members[0] || filteredMembers[0] == userSpace.members[1]))
+    })
+
+    const count = userSpaces.length;
+
+    if (userFound && count === 0) {
+      const space = new Spaces({
+        admin,
+        members,
+        spaceName,
+        chatPic,
+        chatHead : ChatHead
+      });
+      const createdSpace = await space.save();
+      res.status(200).send(createdSpace);
+    } 
+    else {
+      if(!userFound){
+        res.status(404).send("User Not Found!");
+      }else if(count === 0){
+        res.status(404).send("You are already connected to this user.");
+      }
+      
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e);
+  }
+});
+
+router.post("/get-users-spaces", async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    if (!username) {
+      return res.status(422).json({ error: "Please fill all the fields." });
+    }
+
+    const Space = await Spaces.find();
+
+    const SpaceFound = Space.map((elem) => {
+      if (elem.members.includes(username)) {
+        return elem;
+      } else {
+        return null;
+      }
+    });
+
+    const filteredSpaceFound = SpaceFound.filter((elem) => {
+      return elem !== null;
+    });
+
+    if (SpaceFound) {
+      res.send(filteredSpaceFound);
+    } else {
+      res.json("You are not a part of any Space.");
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e);
+  }
+});
+
+router.post("/search-space", async (req, res) => {
+  try {
+    const { search,username } = req.body;
+
+    if (!search) {
+      return res.status(422).json({ error: "Please fill all the fields." });
+    }
+
+    const Space = await Spaces.find();
+
+    const SpaceFound = Space.map((elem) => {
+      if (elem.members.includes(username)) {
+        return elem;
+      } else {
+        return null;
+      }
+    });
+
+    const filteredSpaceFound = SpaceFound.filter((elem) => {
+      return elem !== null;
+    });
+
+
+
+    const newSpaces = filteredSpaceFound.map((space) => {
+      if (space.chatHead.toLowerCase()) {
+        if (!space.chatHead.toLowerCase().search(search)) {
+          return space;
+        }
+      }
+    });
+
+    const filteredNewSpaces = newSpaces.filter((space) => {
+      return space != null
+    })
+
+    if (newSpaces) {
+      res.send(filteredNewSpaces);
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e);
+  }
+});
+
+
+
+
+
 module.exports = router;
