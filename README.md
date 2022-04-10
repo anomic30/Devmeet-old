@@ -16,24 +16,28 @@
 
 </div>
 
-
 ## What is Devmeet ? 🤔
 
 A web application where we can search for developers looking to do hackathons or projects. Developers can connect with each others and whenever someone needs a new developer they can check this web app .
 
- ## Checkout our app to learn more!
+## Checkout our app to learn more!
 
-Link: https://devvcon.netlify.app/
+Link: https://devmeet.netlify.app/
 
 ## Architecture of the web app
-<img src="https://user-images.githubusercontent.com/63467479/162572740-a9620a09-8e5d-42bb-b0c3-dfa7c0e3d49e.png" width="100%">
+
+<img src="https://user-images.githubusercontent.com/72182438/162618703-5a75696f-bf39-4eb3-bc73-c198bbe48732.svg" width="100%">
+
+## How you can find a teammate for a hackathon or project
+
+<img src="https://user-images.githubusercontent.com/72182438/162618669-2f6e256b-6923-4866-9b13-97c75e97719b.svg" width="100%">
 
 ## Getting started
 
 First, make sure you have all these installed on your local machine & then continue.
 
-* Node.js v16.13.1^
-* NPM v8.1.0^
+- Node.js v16.13.1^
+- NPM v8.1.0^
 
 ### Installation
 
@@ -48,7 +52,9 @@ npm install
 cd server
 npm install
 ```
+
 ### ⚠️ Important!
+
 In order to use this for your own purpose, check the .env in each of the directories.
 
 ### Starting the application
@@ -65,4 +71,3 @@ npm run start
 <a href="">
   <img src="https://user-images.githubusercontent.com/63467479/162575107-81136422-e1e1-4e32-a37b-459f58fa4b1f.png" />
 </a>
-
