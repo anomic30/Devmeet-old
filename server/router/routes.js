@@ -340,6 +340,129 @@ router.post("/search-space", async (req, res) => {
 
 
 
+router.post("/send-message", async (req, res) => {
+  try {
+    const { id, username, message } = req.body;
 
+    if (!username || !message) {
+      return res.status(422).json({ error: "Please fill all the fields." });
+    }
+
+    const spaceFound = await Spaces.findOne({ _id: id });
+
+    const spacename = spaceFound.spaceName;
+
+    if (spaceFound) {
+      const embedMessages = await spaceFound.PostMessages(
+        username,
+        message,
+        spacename
+      );
+      return res.status(200).send(embedMessages);
+    } else {
+      return res.status(404).send(`Could not find requested Space.`);
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e);
+  }
+});
+
+router.post("/post-dislike", async (req, res) => {
+  const { id, username } = req.body;
+
+  if (!username || !id) {
+    return res.status(422).json({ error: "Please fill all the fields." });
+  }
+  try {
+    const dislikePost = await Posts.findOne({ _id: id });
+
+    const downvoted = await dislikePost.downvote(username);
+
+    if (downvoted) {
+      res.json({ message: "Downvoted Successfully!" });
+    } else {
+      res.json({ message: "Already Downvoted!" });
+    }
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e);
+  }
+});
+
+//delete post
+router.post("/delete-post/:id", async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const deletePost = await Posts.findByIdAndDelete(_id);
+    res.status(200).json({message: "Post Deleted Successfully!"});
+  } catch (e) {
+    res.status(500);
+    res.json({ message: `Could not delete post --> ${e}` });
+  }
+});
+
+
+router.post("/getUser", async (req, res) => {
+  const {username} = req.body;
+  const userFound = await User.findOne({ username : username});
+  if(userFound){
+    res.status(200).json(userFound);
+  }else{
+    console.log(e);
+    res.status(500).send(e);
+  }
+});
+
+router.get("/logout", auth, async (req, res) => {
+  try {
+    console.log(req.rootUser.tokens);
+    req.rootUser.tokens = req.rootUser.tokens.filter((currElem) => {
+      return currElem.token != req.token;
+    });
+    res.clearCookie("jwt", { path: "/" });
+    res.status(200).send({ message: "logged out successfully!" });
+    await req.rootUser.save();
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+router.post("/login-with-google", async (req, res) => {
+  try {
+    const logEmail = req.body.email;
+
+
+    if (!logEmail) {
+      return res.status(422).json({ error: "Please fill all the fields." });
+    }
+
+
+    const user = await User.findOne({ email: logEmail });
+    const userEmail = await User.findOne({ email: logEmail });
+
+    const token = await userEmail.generateAuthToken();
+
+    res.cookie("jwt", token, {
+      expires: new Date(Date.now() + 60000000),
+      httpOnly: true,
+    });
+
+    // res.send(token);
+
+    if (user) {
+      res.json({
+        message: "Logged In Successfully!",
+        token: token,
+        sucess: true,
+        user: user,
+      });
+    } else {
+      res.status(400).json({ message: "Invalid login credentials" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Invalid login credentials" });
+  }
+});
 
 module.exports = router;
