@@ -16,6 +16,8 @@ const credCheck = async function(res){
     
     const result = await Axios.post('https://devmeet-server.herokuapp.com/login-with-google',{
             email : res.user.email
+    }).catch((e) => {
+        alert("Please Register.");
     });
     if(result){
         localStorage.setItem("token", result.data.token);
@@ -23,7 +25,6 @@ const credCheck = async function(res){
         window.open("/","_self");
         console.log(result);
     }else{
-       alert("Invalid Creds!");
        window.open("/signup", "_self");
     }
 }
